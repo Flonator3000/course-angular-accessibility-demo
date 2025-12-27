@@ -83,6 +83,12 @@
   margin: 0 0 8px 0;
 }
 
+.form-input {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+}
+
 .save-btn {
   background: #ccc;
   cursor: pointer;

@@ -42,13 +42,13 @@
     <section class="form" role="form" aria-labelledby="form-title">
       <h2 class="form-title" id="form-title">Update Profile</h2>
 
-      <div>
-        <label id="username-label">New Username</label>
-        <input type="text" aria-required="true" [attr.aria-labelledby]="'username-label'" [attr.aria-label]="usernameLabel">
+      <div class="form-input">
+        <label id="username-label" for="username-input">New Username</label>
+        <input id="username-input" type="text" aria-required="true" [attr.aria-labelledby]="'username-label'" [attr.aria-label]="usernameLabel">
       </div>
-      <div>
-        <label id="password-label">Password</label>
-        <input type="password" aria-required="true" [attr.aria-labelledby]="'password-label'" [attr.aria-label]="passwordLabel">
+      <div class="form-input">
+        <label id="password-label" for="password-input">Password</label>
+        <input id="password-input" type="password" aria-required="true" [attr.aria-labelledby]="'password-label'" [attr.aria-label]="passwordLabel">
       </div>
 
       <button class="save-btn" (click)="save()" aria-label="Save profile changes">Save</button>
