@@ -10,8 +10,12 @@ export class AccessibleDemoComponent {
   isMenuOpen = false;
   showNotification = false;
   imageUrl = 'team.png';
+  
+  usernameLabel = 'Enter your new username';
+  passwordLabel = 'Enter your password';
+  profileImageDescription = 'Profile photo of the My Profile page';
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) { }
 
   save() {
     this.showNotification = true;

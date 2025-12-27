@@ -11,7 +11,7 @@
   </header>
 
   @if (isMenuOpen) {
-    <nav class="menu" role="navigation" aria-label="Main Menu">
+    <nav class="menu" role="navigation" aria-label="Main Menu" id="main-menu">
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">Articles</a></li>
@@ -29,7 +29,8 @@
     <article class="card">
       <div>
         <h3 class="card-title">My Profile</h3>
-        <img [src]="imageUrl" class="profile-image" role="img">
+        <img [src]="imageUrl" class="profile-image" role="img" 
+             [attr.alt]="profileImageDescription">
       </div>
 
       <p class="text">
@@ -40,15 +41,15 @@
     </article>
 
     <section class="form" role="form" aria-labelledby="form-title">
-      <h2 class="form-title">Update Profile</h2>
+      <h2 class="form-title" id="form-title">Update Profile</h2>
 
       <div>
-        <p>New Username</p>
-        <input type="text" aria-required="true">
+        <label id="username-label">New Username</label>
+        <input type="text" aria-required="true" [attr.aria-labelledby]="'username-label'" [attr.aria-label]="usernameLabel">
       </div>
       <div>
-        <p>Password</p>
-        <input type="password" aria-required="true">
+        <label id="password-label">Password</label>
+        <input type="password" aria-required="true" [attr.aria-labelledby]="'password-label'" [attr.aria-label]="passwordLabel">
       </div>
 
       <button class="save-btn" (click)="save()" aria-label="Save profile changes">Save</button>
