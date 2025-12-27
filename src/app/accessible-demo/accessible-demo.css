@@ -58,6 +58,12 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.form-input {
+  display: inline-block;
+  flex-direction: column;
+}
+
 .save-btn {
   background: #ccc;
   cursor: pointer;
