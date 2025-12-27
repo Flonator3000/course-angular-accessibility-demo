@@ -79,8 +79,9 @@
 }
 
 .form-input {
-  display: inline-block;
+  display: flex;
   flex-direction: column;
+  max-width: 200px;
 }
 
 .save-btn {
