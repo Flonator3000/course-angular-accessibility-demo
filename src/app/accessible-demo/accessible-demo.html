@@ -3,13 +3,15 @@
   <header class="top-bar">
     <h1 class="logo">My Profile</h1>
 
-    <button class="menu-toggle" (click)="toggleMenu()">
+    <button class="menu-toggle" (click)="toggleMenu()" 
+            aria-expanded="{{isMenuOpen}}" 
+            aria-controls="main-menu">
       ☰
     </button>
   </header>
 
   @if (isMenuOpen) {
-    <nav class="menu">
+    <nav class="menu" role="navigation" aria-label="Main Menu">
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">Articles</a></li>
@@ -27,7 +29,7 @@
     <article class="card">
       <div>
         <h3 class="card-title">My Profile</h3>
-        <img [src]="imageUrl" class="profile-image">
+        <img [src]="imageUrl" class="profile-image" role="img">
       </div>
 
       <p class="text">
@@ -37,22 +39,23 @@
       </p>
     </article>
 
-    <section class="form">
+    <section class="form" role="form" aria-labelledby="form-title">
+      <h2 class="form-title">Update Profile</h2>
+
       <div>
         <p>New Username</p>
-        <input type="text">
+        <input type="text" aria-required="true">
       </div>
-
       <div>
         <p>Password</p>
-        <input type="password">
+        <input type="password" aria-required="true">
       </div>
 
-      <button class="save-btn" (click)="save()">Save</button>
+      <button class="save-btn" (click)="save()" aria-label="Save profile changes">Save</button>
     </section>
 
     @if (showNotification) {
-      <section class="notification">
+      <section class="notification" role="status" aria-live="polite">
         Saved successfully
       </section>
     }

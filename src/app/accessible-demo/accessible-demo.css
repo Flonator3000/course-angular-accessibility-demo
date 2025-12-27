@@ -78,6 +78,11 @@
   gap: 10px;
 }
 
+.form-title {
+  font-size: 18px;
+  margin: 0 0 8px 0;
+}
+
 .save-btn {
   background: #ccc;
   cursor: pointer;
