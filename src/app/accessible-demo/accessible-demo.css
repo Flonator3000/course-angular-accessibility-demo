@@ -8,21 +8,17 @@
   gap: 20px;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .top-bar {
   background: #eee;
   padding: 8px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
   font-size: 18px;
+  margin: 0;
 }
 
 .menu-toggle {
@@ -33,12 +29,30 @@
   background: #ddd;
 }
 
-.menu-item {
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
   padding: 4px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .title {
   font-size: 20px;
+  margin: 0;
 }
 
 .card {
@@ -51,6 +65,11 @@
 
 .card-title {
   font-size: 16px;
+  margin: 0 0 8px 0;
+}
+
+.text {
+  margin: 0;
 }
 
 .form {
@@ -58,10 +77,11 @@
   flex-direction: column;
   gap: 10px;
 }
+
 .save-btn {
   background: #ccc;
   cursor: pointer;
-    display: inline-flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   max-width: 60px;
@@ -72,6 +92,7 @@
   background: #ddd;
   color: #aaa;
   margin-top: 10px;
+  padding: 5px;
 }
 
 .profile-image {

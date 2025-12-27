@@ -1,59 +1,62 @@
 <div class="page">
 
-  <div class="top-bar">
-    <div class="logo">My Profile</div>
+  <header class="top-bar">
+    <h1 class="logo">My Profile</h1>
 
-    <div class="menu-toggle" (click)="toggleMenu()">
+    <button class="menu-toggle" (click)="toggleMenu()">
       ☰
-    </div>
-  </div>
+    </button>
+  </header>
 
   @if (isMenuOpen) {
-  <div class="menu">
-    <div class="menu-item">Home</div>
-    <div class="menu-item">Articles</div>
-    <div class="menu-item">Contact</div>
-  </div>
+    <nav class="menu">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Articles</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
   }
 
-  <div class="content">
+  <main class="content">
 
-    <div class="title">Welcome</div>
+    <section>
+      <h2 class="title">Welcome</h2>
+    </section>
 
-    <div class="card">
+    <article class="card">
       <div>
-        <div class="card-title">My Profile</div>
+        <h3 class="card-title">My Profile</h3>
         <img [src]="imageUrl" class="profile-image">
       </div>
-      <div class="text">
-        Experienced software professional with a strong focus on building reliable, scalable web applications. Adept at
-        collaborating across teams to translate business requirements into clean, maintainable solutions. Committed to
-        continuous improvement, code quality, and delivering measurable value through technology.
-      </div>
 
+      <p class="text">
+        Experienced software professional with a strong focus on building reliable, scalable web applications.
+        Adept at collaborating across teams to translate business requirements into clean, maintainable solutions.
+        Committed to continuous improvement, code quality, and delivering measurable value through technology.
+      </p>
+    </article>
 
-    </div>
-
-    <div class="form">
+    <section class="form">
       <div>
-        <div>New Username</div>
+        <p>New Username</p>
         <input type="text">
       </div>
 
       <div>
-        <div>Password</div>
+        <p>Password</p>
         <input type="password">
       </div>
 
-      <div class="save-btn" (click)="save()">Save</div>
-    </div>
+      <button class="save-btn" (click)="save()">Save</button>
+    </section>
 
     @if (showNotification) {
-    <div class="notification">
-      Saved successfully
-    </div>
+      <section class="notification">
+        Saved successfully
+      </section>
     }
 
-  </div>
+  </main>
 
 </div>

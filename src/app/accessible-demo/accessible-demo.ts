@@ -11,7 +11,7 @@ export class AccessibleDemoComponent {
   showNotification = false;
   imageUrl = 'team.png';
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   save() {
     this.showNotification = true;
