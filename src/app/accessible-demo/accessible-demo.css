@@ -1,24 +1,24 @@
 .page {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
+  font-family: Arial;
+  font-size: 14px;
   color: #333;
   background-color: #ffffff;
   max-width: 500px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .top-bar {
   background: #19538d;
-  padding: 12px;
+  padding: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 18px;
   margin: 0;
   color: #ffffff;
 }
@@ -28,7 +28,6 @@
   background: #ffffff;
   color: #1f2933;
   border: none;
-  padding: 6px 10px;
 }
 
 .menu-toggle:focus {
@@ -46,7 +45,7 @@
 }
 
 .menu li {
-  padding: 6px 8px;
+  padding: 4px;
 }
 
 .menu a {
@@ -65,7 +64,7 @@
 }
 
 .title {
-  font-size: 22px;
+  font-size: 20px;
   margin: 0;
 }
 
@@ -78,38 +77,33 @@
 }
 
 .card-title {
-  font-size: 18px;
+  font-size: 16px;
   margin: 0 0 8px 0;
 }
 
 .text {
   margin: 0;
-  line-height: 1.6;
 }
 
 .form {
   display: inline-flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .form-title {
-  font-size: 20px;
+  font-size: 18px;
   margin: 0 0 8px 0;
 }
 
 .form-input {
   display: flex;
   flex-direction: column;
-  max-width: 220px;
+  max-width: 200px;
 }
 
-.form-input label {
-  margin-bottom: 4px;
-}
 
 .form-input input {
-  padding: 6px;
   border: 1px solid #6b7280;
 }
 
@@ -124,8 +118,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  max-width: 80px;
-  padding: 10px 16px;
+  max-width: 60px;
+  padding: 8px 16px;
   border: none;
 }
 
@@ -137,7 +131,7 @@
   background: #065f46;
   color: #ffffff;
   margin-top: 10px;
-  padding: 8px;
+  padding: 5px;
 }
 
 .profile-image {
