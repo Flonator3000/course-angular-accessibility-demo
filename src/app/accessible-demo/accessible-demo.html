@@ -3,21 +3,19 @@
   <header class="top-bar">
     <h1 class="logo">My Profile</h1>
 
-    <button class="menu-toggle" (click)="toggleMenu()" 
-            aria-expanded="{{isMenuOpen}}" 
-            aria-controls="main-menu">
+    <button class="menu-toggle" (click)="toggleMenu()" aria-expanded="{{isMenuOpen()}}" aria-controls="main-menu">
       ☰
     </button>
   </header>
 
-  @if (isMenuOpen) {
-    <nav class="menu" role="navigation" aria-label="Main Menu" id="main-menu">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Articles</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
+  @if (isMenuOpen()) {
+  <nav class="menu" role="navigation" aria-label="Main Menu" id="main-menu">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Articles</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
   }
 
   <main class="content">
@@ -44,20 +42,22 @@
 
       <div class="form-input">
         <label id="username-label" for="username-input">New Username</label>
-        <input id="username-input" type="text" aria-required="true" [attr.aria-labelledby]="'username-label'" [attr.aria-label]="usernameLabel">
+        <input id="username-input" type="text" aria-required="true" [attr.aria-labelledby]="'username-label'"
+          [attr.aria-label]="usernameLabel">
       </div>
       <div class="form-input">
         <label id="password-label" for="password-input">Password</label>
-        <input id="password-input" type="password" aria-required="true" [attr.aria-labelledby]="'password-label'" [attr.aria-label]="passwordLabel">
+        <input id="password-input" type="password" aria-required="true" [attr.aria-labelledby]="'password-label'"
+          [attr.aria-label]="passwordLabel">
       </div>
 
       <button class="save-btn" (click)="save()" aria-label="Save profile changes">Save</button>
     </section>
 
-    @if (showNotification) {
-      <section class="notification" role="status" aria-live="polite">
-        Saved successfully
-      </section>
+    @if (showNotification()) {
+    <section class="notification" role="status" aria-live="polite">
+      Saved successfully
+    </section>
     }
 
   </main>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-accessible-demo',
@@ -7,24 +7,21 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccessibleDemoComponent {
-  isMenuOpen = false;
-  showNotification = false;
-  imageUrl = 'team.png';
+  protected isMenuOpen: WritableSignal<boolean> = signal(false);
+  protected showNotification: WritableSignal<boolean> = signal(false);
+  protected readonly imageUrl = 'profile.png';
   
-  usernameLabel = 'Enter your new username';
-  passwordLabel = 'Enter your password';
-
-  constructor(private cdr: ChangeDetectorRef) { }
+  protected readonly usernameLabel = 'Enter your new username';
+  protected readonly passwordLabel = 'Enter your password';
 
   save() {
-    this.showNotification = true;
+    this.showNotification.set(true);
     setTimeout(() => {
-      this.showNotification = false;
-      this.cdr.markForCheck();
+      this.showNotification.set(false);
     }, 3000);
   }
 
   toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+    this.isMenuOpen.update((value) => !value);
   }
 }
