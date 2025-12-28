@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Signal, signal, viewChild, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-accessible-demo',
@@ -7,24 +7,38 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccessibleDemoComponent {
-  isMenuOpen = false;
-  showNotification = false;
-  imageUrl = 'team.png';
-  
-  usernameLabel = 'Enter your new username';
-  passwordLabel = 'Enter your password';
+  private menuToggleButton: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('menuToggleButton');
+  private firstMenuItem: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef>('firstMenuItem');
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  protected isMenuOpen: WritableSignal<boolean> = signal(false);
+  protected showNotification: WritableSignal<boolean> = signal(false);
+  protected readonly imageUrl = 'profile.png';
+
+  protected readonly usernameLabel = 'Enter your new username';
+  protected readonly passwordLabel = 'Enter your password';
 
   save() {
-    this.showNotification = true;
+    this.showNotification.set(true);
     setTimeout(() => {
-      this.showNotification = false;
-      this.cdr.markForCheck();
+      this.showNotification.set(false);
     }, 3000);
   }
 
   toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+    this.isMenuOpen.set(!this.isMenuOpen());
+
+    setTimeout(() => {
+      if (this.isMenuOpen()) {
+        this.firstMenuItem()!.nativeElement.focus();
+      } else {
+        this.menuToggleButton()!.nativeElement.focus();
+      }
+    });
+  }
+
+  onMenuKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.toggleMenu();
+    }
   }
 }
