@@ -25,7 +25,7 @@ export class AccessibleDemoComponent {
   }
 
   toggleMenu() {
-    this.isMenuOpen.set(!this.isMenuOpen());
+    this.isMenuOpen.update((value) => !value);
 
     setTimeout(() => {
       if (this.isMenuOpen()) {
