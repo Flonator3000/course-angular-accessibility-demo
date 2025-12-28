@@ -4,13 +4,13 @@
     <h1 class="logo">My Profile</h1>
 
     <button class="menu-toggle" (click)="toggleMenu()" 
-            aria-expanded="{{isMenuOpen}}" 
+            aria-expanded="{{isMenuOpen()}}" 
             aria-controls="main-menu">
       ☰
     </button>
   </header>
 
-  @if (isMenuOpen) {
+  @if (isMenuOpen()) {
     <nav class="menu" role="navigation" aria-label="Main Menu">
       <ul>
         <li><a href="#">Home</a></li>
@@ -54,7 +54,7 @@
       <button class="save-btn" (click)="save()">Save</button>
     </section>
 
-    @if (showNotification) {
+    @if (showNotification()) {
       <section class="notification" role="status" aria-live="polite">
         Saved successfully
       </section>
