@@ -1,32 +1,42 @@
 .page {
-  font-family: Arial;
-  font-size: 14px;
-  color: #777;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #ffffff;
   max-width: 500px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .top-bar {
-  background: #eee;
-  padding: 8px;
+  background: #19538d;
+  padding: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  font-size: 18px;
+  font-size: 20px;
   margin: 0;
+  color: #ffffff;
 }
 
 .menu-toggle {
   cursor: pointer;
+  background: #ffffff;
+  color: #1f2933;
+  border: none;
+  padding: 6px 10px;
+}
+
+.menu-toggle:focus {
+  outline: 3px solid #ffbf47;
 }
 
 .menu {
-  background: #ddd;
+  background: #e5e7eb;
 }
 
 .menu ul {
@@ -36,12 +46,16 @@
 }
 
 .menu li {
-  padding: 4px;
+  padding: 6px 8px;
 }
 
 .menu a {
   text-decoration: none;
-  color: inherit;
+  color: #111827;
+}
+
+.menu a:focus {
+  outline: 3px solid #ffbf47;
 }
 
 .content {
@@ -51,12 +65,12 @@
 }
 
 .title {
-  font-size: 20px;
+  font-size: 22px;
   margin: 0;
 }
 
 .card {
-  background: #f5f5f5;
+  background: #c5dffa;
   padding: 10px;
   display: flex;
   gap: 20px;
@@ -64,46 +78,66 @@
 }
 
 .card-title {
-  font-size: 16px;
+  font-size: 18px;
   margin: 0 0 8px 0;
 }
 
 .text {
   margin: 0;
+  line-height: 1.6;
 }
 
 .form {
   display: inline-flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .form-title {
-  font-size: 18px;
+  font-size: 20px;
   margin: 0 0 8px 0;
 }
 
 .form-input {
   display: flex;
   flex-direction: column;
-  max-width: 200px;
+  max-width: 220px;
+}
+
+.form-input label {
+  margin-bottom: 4px;
+}
+
+.form-input input {
+  padding: 6px;
+  border: 1px solid #6b7280;
+}
+
+.form-input input:focus {
+  outline: 3px solid #ffbf47;
 }
 
 .save-btn {
-  background: #ccc;
+  background: #19538d;
+  color: #ffffff;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  max-width: 60px;
-  padding: 8px 16px;
+  max-width: 80px;
+  padding: 10px 16px;
+  border: none;
+}
+
+.save-btn:focus {
+  outline: 3px solid #ffbf47;
 }
 
 .notification {
-  background: #ddd;
-  color: #aaa;
+  background: #065f46;
+  color: #ffffff;
   margin-top: 10px;
-  padding: 5px;
+  padding: 8px;
 }
 
 .profile-image {

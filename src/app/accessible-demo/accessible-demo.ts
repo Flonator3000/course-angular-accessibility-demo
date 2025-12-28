@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Signal, signal, viewChild, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Signal,
+  signal,
+  viewChild,
+  WritableSignal
+} from '@angular/core';
 
 @Component({
   selector: 'app-accessible-demo',
@@ -7,11 +15,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnIn
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccessibleDemoComponent {
-  private menuToggleButton: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('menuToggleButton');
-  private firstMenuItem: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef>('firstMenuItem');
+  private menuToggleButton: Signal<ElementRef<HTMLButtonElement> | undefined> =
+    viewChild<ElementRef<HTMLButtonElement>>('menuToggleButton');
+
+  private firstMenuItem: Signal<ElementRef<HTMLAnchorElement> | undefined> =
+    viewChild<ElementRef<HTMLAnchorElement>>('firstMenuItem');
 
   protected isMenuOpen: WritableSignal<boolean> = signal(false);
   protected showNotification: WritableSignal<boolean> = signal(false);
+
   protected readonly imageUrl = 'profile.png';
 
   protected readonly usernameLabel = 'Enter your new username';

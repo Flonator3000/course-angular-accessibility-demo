@@ -3,20 +3,29 @@
   <header class="top-bar">
     <h1 class="logo">My Profile</h1>
 
-    <button #menuToggleButton class="menu-toggle" (click)="toggleMenu()" aria-expanded="{{isMenuOpen()}}"
+    <button
+      #menuToggleButton
+      class="menu-toggle"
+      (click)="toggleMenu()"
+      aria-expanded="{{ isMenuOpen() }}"
       aria-controls="main-menu">
       ☰
     </button>
   </header>
 
   @if (isMenuOpen()) {
-  <nav class="menu" role="navigation" aria-label="Main Menu" id="main-menu" (keydown)="onMenuKeydown($event)">
-    <ul>
-      <li><a href="#" #firstMenuItem>Home</a></li>
-      <li><a href="#">Articles</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
+    <nav
+      class="menu"
+      role="navigation"
+      aria-label="Main Menu"
+      id="main-menu"
+      (keydown)="onMenuKeydown($event)">
+      <ul>
+        <li><a href="#" #firstMenuItem>Home</a></li>
+        <li><a href="#">Articles</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
   }
 
   <main class="content">
@@ -28,7 +37,10 @@
     <article class="card">
       <div>
         <h3 class="card-title">My Profile</h3>
-        <img [src]="imageUrl" class="profile-image" role="img">
+        <img
+          [src]="imageUrl"
+          class="profile-image"
+          role="img">
       </div>
 
       <p class="text">
@@ -43,22 +55,33 @@
 
       <div class="form-input">
         <label id="username-label" for="username-input">New Username</label>
-        <input id="username-input" type="text" aria-required="true" [attr.aria-labelledby]="'username-label'"
+        <input
+          id="username-input"
+          type="text"
+          aria-required="true"
+          [attr.aria-labelledby]="'username-label'"
           [attr.aria-label]="usernameLabel">
       </div>
+
       <div class="form-input">
         <label id="password-label" for="password-input">Password</label>
-        <input id="password-input" type="password" aria-required="true" [attr.aria-labelledby]="'password-label'"
+        <input
+          id="password-input"
+          type="password"
+          aria-required="true"
+          [attr.aria-labelledby]="'password-label'"
           [attr.aria-label]="passwordLabel">
       </div>
 
-      <button class="save-btn" (click)="save()" aria-label="Save profile changes">Save</button>
+      <button class="save-btn" (click)="save()" aria-label="Save profile changes">
+        Save
+      </button>
     </section>
 
     @if (showNotification()) {
-    <section class="notification" role="status" aria-live="polite">
-      Saved successfully
-    </section>
+      <section class="notification" role="status" aria-live="polite">
+        Saved successfully
+      </section>
     }
 
   </main>
