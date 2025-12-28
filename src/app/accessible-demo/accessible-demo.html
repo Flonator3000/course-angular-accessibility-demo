@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  @if (isMenuOpen) {
+  @if (isMenuOpen()) {
   <div class="menu">
     <div class="menu-item">Home</div>
     <div class="menu-item">Articles</div>
@@ -48,7 +48,7 @@
       <div class="save-btn" (click)="save()">Save</div>
     </div>
 
-    @if (showNotification) {
+    @if (showNotification()) {
     <div class="notification">
       Saved successfully
     </div>
