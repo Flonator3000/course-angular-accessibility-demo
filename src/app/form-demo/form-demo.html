@@ -1,0 +1,97 @@
+<!-- Navigation Menu (inaccessible) -->
+<div class="menu">
+    <div class="menu-button" (click)="toggleMenu()">Menu</div>
+    @if (isMenuOpen()) {
+    <div class="menu-items">
+        <div (click)="null">Home</div>
+        <div (click)="null">Profile</div>
+        <div (click)="null">Settings</div>
+    </div>
+    }
+
+</div>
+
+<hr />
+
+<!-- Form (inaccessible) -->
+<div class="form">
+    <input type="email" placeholder="Email" [(ngModel)]="email" />
+
+    <input type="password" placeholder="Password" [(ngModel)]="password" />
+
+    @if (errorMessage()) {
+    <div class="error">
+        {{ errorMessage() }}
+    </div>
+    }
+
+    <div class="submit" (click)="submitForm()">Submit</div>
+</div>
+
+<hr />
+
+<!-- Custom Toggle (inaccessible) -->
+<div class="toggle" (click)="toggleNotifications()">
+    Notifications: {{ notificationsEnabled() ? 'On' : 'Off' }}
+</div>
+
+<hr />
+
+<!-- Dropdown (inaccessible) -->
+<div class="dropdown">
+    <div class="dropdown-trigger" (click)="toggleDropdown()">
+        {{ selectedOption() || 'Select frequency' }}
+    </div>
+
+    @if (isDropdownOpen()) {
+    <div class="dropdown-options">
+        @for(option of options; track option) {
+        <div (click)="selectOption(option)">
+            {{ option }}
+        </div>
+        }
+
+    </div>
+    }
+
+</div>
+
+<hr />
+
+<!-- Modal (inaccessible) -->
+<div class="open-modal" (click)="openModal()">Open Modal</div>
+
+@if (isModalOpen()) {
+<div class="modal-backdrop"></div>
+}
+
+
+@if(isModalOpen()) {
+<div class="modal">
+    <h2>Confirm Action</h2>
+    <p>Are you sure?</p>
+    <div class="modal-actions">
+        <div (click)="closeModal()">Cancel</div>
+        <div (click)="closeModal()">Confirm</div>
+    </div>
+</div>
+}
+
+
+<hr />
+
+<!-- Data Table (inaccessible) -->
+<div class="table">
+    <div class="row header">
+        <div>Name</div>
+        <div>Age</div>
+    </div>
+
+    @for (user of users(); track user.name) {
+    <div class="row">
+        <div>{{ user.name }}</div>
+        <div>{{ user.age }}</div>
+    </div>
+    }
+
+</div>

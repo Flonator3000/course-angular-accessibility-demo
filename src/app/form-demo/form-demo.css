@@ -1,0 +1,45 @@
+.menu-button,
+.submit,
+.toggle,
+.dropdown-trigger,
+.open-modal,
+.modal-actions div {
+  cursor: pointer;
+  padding: 8px;
+  background: #ddd;
+  margin-bottom: 4px;
+}
+
+.menu-items div,
+.dropdown-options div {
+  padding: 6px;
+  background: #eee;
+}
+
+.error {
+  color: red;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 16px;
+}
+
+.row {
+  display: flex;
+}
+
+.row > div {
+  width: 100px;
+  padding: 4px;
+}
