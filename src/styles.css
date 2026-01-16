@@ -4,3 +4,20 @@ body {
    padding-right: 10vw;
    padding-top: 2vw;
 }
+
+/* =========================
+   Design Tokens / Theme
+   ========================= */
+:root {
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-primary: #2563eb;     /* blue-600 */
+  --color-primary-hover: #1d4ed8;
+  --color-border: #d1d5db;      /* gray-300 */
+  --color-text: #111827;        /* gray-900 */
+  --color-muted: #6b7280;       /* gray-500 */
+  --color-error: #dc2626;       /* red-600 */
+  --radius: 6px;
+  --spacing: 12px;
+  --font-size-base: 14px;
+}
