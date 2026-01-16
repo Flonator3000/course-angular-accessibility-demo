@@ -57,6 +57,7 @@ export class FormDemo {
 
   protected toggleDropdown(): void {
     this.isDropdownOpen.update(value => !value);
+    this.activeOptionIndex.set(0);
   }
 
   protected selectOption(option: string): void {
@@ -82,7 +83,10 @@ export class FormDemo {
     effect(() => {
       if (this.isModalOpen()) {
         const modal = document.querySelector('.modal') as HTMLElement | null;
-        modal?.focus();
+        const focusable = modal?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        focusable?.[0]?.focus();
       }
     });
   }
@@ -92,6 +96,30 @@ export class FormDemo {
     if (this.isModalOpen() && event.key === 'Escape') {
       event.preventDefault();
       this.closeModal();
+      return;
+    }
+
+    /* Focus trap inside modal */
+    if (this.isModalOpen() && event.key === 'Tab') {
+      const modal = document.querySelector('.modal') as HTMLElement | null;
+      const focusable = modal?.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
+
+      if (!focusable || focusable.length === 0) {
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
 
     if (this.isDropdownOpen()) {

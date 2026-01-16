@@ -42,9 +42,9 @@
   </label>
 
   @if (errorMessage()) {
-  <div class="error" aria-live="assertive">
-    {{ errorMessage() }}
-  </div>
+    <div class="error" aria-live="assertive">
+      {{ errorMessage() }}
+    </div>
   }
 
   <button type="submit" class="submit">Submit</button>
@@ -109,7 +109,6 @@
     class="modal"
     role="dialog"
     aria-modal="true"
-    tabindex="-1"
     aria-labelledby="modal-title"
   >
     <h2 id="modal-title">Confirm Action</h2>
