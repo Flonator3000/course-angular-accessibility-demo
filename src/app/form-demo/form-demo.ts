@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, Inject, Signal, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 export interface User {
-    name: string, 
-    age: number
+  name: string;
+  age: number;
 }
 
 @Component({
@@ -11,30 +11,23 @@ export interface User {
   templateUrl: './form-demo.html',
   styleUrls: ['./form-demo.css'],
   imports: [FormsModule],
-   changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormDemo {
-  // Form state
   protected email: WritableSignal<string> = signal('');
   protected password: WritableSignal<string> = signal('');
   protected errorMessage: WritableSignal<string> = signal('');
 
-  // Custom toggle
   protected notificationsEnabled: WritableSignal<boolean> = signal(false);
 
-  // Dropdown
   protected isDropdownOpen: WritableSignal<boolean> = signal(false);
   protected selectedOption: WritableSignal<string | null> = signal(null);
   protected readonly options = ['Daily', 'Weekly', 'Monthly'];
 
-  // Menu
   protected isMenuOpen: WritableSignal<boolean> = signal(false);
 
-  // Modal
   protected isModalOpen: WritableSignal<boolean> = signal(false);
-  protected lastFocusedElement: WritableSignal<HTMLElement | null> = signal(null);
 
-  // Table
   protected users: WritableSignal<User[]> = signal([
     { name: 'Alice', age: 30 },
     { name: 'Bob', age: 24 },
@@ -45,7 +38,7 @@ export class FormDemo {
     if (!this.email() || !this.password()) {
       this.errorMessage.set('Invalid input');
     } else {
-     this.errorMessage.set('');
+      this.errorMessage.set('');
     }
   }
 
@@ -67,12 +60,10 @@ export class FormDemo {
   }
 
   protected openModal(): void {
-    this.lastFocusedElement.set(document.activeElement as HTMLElement);
     this.isModalOpen.set(true);
   }
 
   protected closeModal(): void {
     this.isModalOpen.set(false);
-    this.lastFocusedElement()?.focus();
   }
 }

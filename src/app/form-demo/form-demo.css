@@ -1,6 +1,3 @@
-/* =========================
-   Global
-   ========================= */
 :host {
   display: block;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -15,9 +12,7 @@ hr {
   border-top: 1px solid var(--color-border);
 }
 
-/* =========================
-   Menu
-   ========================= */
+/* Menu */
 .menu {
   max-width: 320px;
 }
@@ -28,27 +23,32 @@ hr {
   padding: 10px 14px;
   border-radius: var(--radius);
   font-weight: 600;
+  border: none;
 }
-
+.menu-button:hover {
+    cursor: pointer;
+}
 .menu-items {
   margin-top: 8px;
+  padding: 0;
+  list-style: none;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
-  overflow: hidden;
 }
 
-.menu-items div {
+.menu-items li a {
+  display: block;
   padding: 10px 14px;
+  text-decoration: none;
+  color: inherit;
 }
 
-.menu-items div:hover {
+.menu-items li a:hover {
   background: #f3f4f6;
 }
 
-/* =========================
-   Form
-   ========================= */
+/* Form */
 .form {
   max-width: 360px;
   background: var(--color-surface);
@@ -57,6 +57,13 @@ hr {
   padding: 16px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
 }
 
 .form input {
@@ -64,21 +71,15 @@ hr {
   font-size: var(--font-size-base);
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
-  margin-bottom: 12px;
-}
-
-.form input:focus {
-  outline: none;
-  border-color: var(--color-primary);
 }
 
 .submit {
-  text-align: center;
   background: var(--color-primary);
   color: white;
   padding: 10px;
   border-radius: var(--radius);
   font-weight: 600;
+  border: none;
 }
 
 .submit:hover {
@@ -87,7 +88,6 @@ hr {
 }
 
 .error {
-  margin-bottom: 12px;
   padding: 8px 10px;
   border-radius: var(--radius);
   background: #fee2e2;
@@ -95,30 +95,24 @@ hr {
   font-size: 13px;
 }
 
-/* =========================
-   Toggle
-   ========================= */
+/* Toggle */
 .toggle {
-  display: inline-block;
   padding: 10px 14px;
   border-radius: var(--radius);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   font-weight: 500;
 }
-
 .toggle:hover {
       cursor: pointer;
 }
-
-/* =========================
-   Dropdown
-   ========================= */
+/* Dropdown */
 .dropdown {
   max-width: 280px;
 }
 
 .dropdown-trigger {
+  width: 100%;
   padding: 10px 12px;
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
@@ -127,36 +121,38 @@ hr {
 .dropdown-trigger:hover {
     cursor: pointer; 
 }
-
 .dropdown-options {
   margin-top: 4px;
+  padding: 0;
+  list-style: none;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
-  overflow: hidden;
 }
-.dropdown-options:hover {
+li:hover {
     cursor: pointer; 
 }
 
-.dropdown-options div {
+.dropdown-options li button {
+  width: 100%;
   padding: 10px 12px;
+  border: none;
+  background: none;
+  text-align: left;
 }
 
-.dropdown-options div:hover {
+.dropdown-options li button:hover {
   background: #f3f4f6;
 }
 
-/* =========================
-   Modal
-   ========================= */
+/* Modal */
 .open-modal {
-  display: inline-block;
   padding: 10px 14px;
   background: var(--color-primary);
   color: white;
   border-radius: var(--radius);
   font-weight: 600;
+  border: none;
 }
 .open-modal:hover {
     cursor: pointer;
@@ -177,7 +173,6 @@ hr {
   background: var(--color-surface);
   border-radius: var(--radius);
   padding: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .modal-actions {
@@ -186,47 +181,26 @@ hr {
   gap: 8px;
   margin-top: 16px;
 }
-
-.modal-actions div {
-  padding: 8px 12px;
-  border-radius: var(--radius);
-  background: #e5e7eb;
-}
 .modal-actions div:hover {
     cursor: pointer;
 }
-
-.modal-actions div:last-child {
-  background: var(--color-primary);
-  color: white;
-}
-
-/* =========================
-   Table
-   ========================= */
+/* Table */
 .table {
+  width: 100%;
   max-width: 320px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  overflow: hidden;
+  border-collapse: collapse;
   background: var(--color-surface);
+  border: 1px solid var(--color-border);
 }
 
-.row {
-  display: flex;
-}
-
-.row.header {
-  background: #f3f4f6;
-  font-weight: 600;
-}
-
-.row > div {
-  flex: 1;
+.table th,
+.table td {
   padding: 10px 12px;
   border-bottom: 1px solid var(--color-border);
+  text-align: left;
 }
 
-.row:last-child > div {
-  border-bottom: none;
+.table th {
+  background: #f3f4f6;
+  font-weight: 600;
 }

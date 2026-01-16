@@ -1,90 +1,108 @@
-<div class="menu">
-    <div class="menu-button" (click)="toggleMenu()">Menu</div>
-    @if (isMenuOpen()) {
-    <div class="menu-items">
-        <div (click)="null">Home</div>
-        <div (click)="null">Profile</div>
-        <div (click)="null">Settings</div>
-    </div>
-    }
+<nav class="menu">
+  <button type="button" class="menu-button" (click)="toggleMenu()">
+    Menu
+  </button>
 
-</div>
+  @if (isMenuOpen()) {
+    <ul class="menu-items">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  }
+</nav>
 
 <hr />
 
-<div class="form">
-    <input type="email" placeholder="Email" [(ngModel)]="email" />
+<form class="form" (ngSubmit)="submitForm()">
+  <label>
+    Email
+    <input type="email" [(ngModel)]="email" name="email" />
+  </label>
 
-    <input type="password" placeholder="Password" [(ngModel)]="password" />
+  <label>
+    Password
+    <input type="password" [(ngModel)]="password" name="password" />
+  </label>
 
-    @if (errorMessage()) {
+  @if (errorMessage()) {
     <div class="error">
-        {{ errorMessage() }}
+      {{ errorMessage() }}
     </div>
-    }
+  }
 
-    <div class="submit" (click)="submitForm()">Submit</div>
-</div>
+  <button type="submit" class="submit">Submit</button>
+</form>
 
 <hr />
 
-<div class="toggle" (click)="toggleNotifications()">
-    Notifications: {{ notificationsEnabled() ? 'On' : 'Off' }}
-</div>
+<button
+  type="button"
+  class="toggle"
+  (click)="toggleNotifications()"
+>
+  Notifications: {{ notificationsEnabled() ? 'On' : 'Off' }}
+</button>
 
 <hr />
 
 <div class="dropdown">
-    <div class="dropdown-trigger" (click)="toggleDropdown()">
-        {{ selectedOption() || 'Select frequency' }}
-    </div>
+  <button
+    type="button"
+    class="dropdown-trigger"
+    (click)="toggleDropdown()"
+  >
+    {{ selectedOption() || 'Select frequency' }}
+  </button>
 
-    @if (isDropdownOpen()) {
-    <div class="dropdown-options">
-        @for(option of options; track option) {
-        <div (click)="selectOption(option)">
+  @if (isDropdownOpen()) {
+    <ul class="dropdown-options">
+      @for (option of options; track option) {
+        <li>
+          <button type="button" (click)="selectOption(option)">
             {{ option }}
-        </div>
-        }
-    </div>
-    }
-
+          </button>
+        </li>
+      }
+    </ul>
+  }
 </div>
 
 <hr />
 
-<div class="open-modal" (click)="openModal()">Open Modal</div>
+<button type="button" class="open-modal" (click)="openModal()">
+  Open Modal
+</button>
 
 @if (isModalOpen()) {
-<div class="modal-backdrop"></div>
-}
+  <div class="modal-backdrop"></div>
 
-
-@if(isModalOpen()) {
-<div class="modal">
+  <div class="modal">
     <h2>Confirm Action</h2>
     <p>Are you sure?</p>
-    <div class="modal-actions">
-        <div (click)="closeModal()">Cancel</div>
-        <div (click)="closeModal()">Confirm</div>
-    </div>
-</div>
-}
 
+    <div class="modal-actions">
+      <button type="button" (click)="closeModal()">Cancel</button>
+      <button type="button" (click)="closeModal()">Confirm</button>
+    </div>
+  </div>
+}
 
 <hr />
 
-<div class="table">
-    <div class="row header">
-        <div>Name</div>
-        <div>Age</div>
-    </div>
-
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
     @for (user of users(); track user.name) {
-    <div class="row">
-        <div>{{ user.name }}</div>
-        <div>{{ user.age }}</div>
-    </div>
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.age }}</td>
+      </tr>
     }
-
-</div>
+  </tbody>
+</table>
