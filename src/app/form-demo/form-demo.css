@@ -12,6 +12,13 @@ hr {
   border-top: 1px solid var(--color-border);
 }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 /* Menu */
 .menu {
   max-width: 320px;
@@ -88,6 +95,7 @@ hr {
 }
 
 .error {
+  min-height: 1em;
   padding: 8px 10px;
   border-radius: var(--radius);
   background: #fee2e2;
@@ -155,6 +163,28 @@ li:hover {
   border: none;
 }
 .open-modal:hover {
+    cursor: pointer;
+}
+.confirm {
+  padding: 10px 14px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius);
+  font-weight: 600;
+  border: none;
+}
+.confirm:hover {
+    cursor: pointer;
+}
+.cancel {
+      padding: 10px 14px;
+  background: var(--color-muted);
+  color: white;
+  border-radius: var(--radius);
+  font-weight: 600;
+  border: none;
+}
+.cancel:hover {
     cursor: pointer;
 }
 

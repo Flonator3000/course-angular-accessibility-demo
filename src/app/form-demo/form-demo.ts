@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  WritableSignal,
+  effect,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 export interface User {
@@ -27,6 +33,7 @@ export class FormDemo {
   protected isMenuOpen: WritableSignal<boolean> = signal(false);
 
   protected isModalOpen: WritableSignal<boolean> = signal(false);
+  protected lastFocusedElement: WritableSignal<HTMLElement | null> = signal(null);
 
   protected users: WritableSignal<User[]> = signal([
     { name: 'Alice', age: 30 },
@@ -60,10 +67,21 @@ export class FormDemo {
   }
 
   protected openModal(): void {
+    this.lastFocusedElement.set(document.activeElement as HTMLElement);
     this.isModalOpen.set(true);
   }
 
   protected closeModal(): void {
     this.isModalOpen.set(false);
+    this.lastFocusedElement()?.focus();
+  }
+
+  constructor() {
+    effect(() => {
+      if (this.isModalOpen()) {
+        const modal = document.querySelector('.modal') as HTMLElement | null;
+        modal?.focus();
+      }
+    });
   }
 }

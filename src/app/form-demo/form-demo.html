@@ -1,35 +1,49 @@
 <nav class="menu">
-  <button type="button" class="menu-button" (click)="toggleMenu()">
+  <button
+    type="button"
+    class="menu-button"
+    (click)="toggleMenu()"
+    aria-haspopup="true"
+    [attr.aria-expanded]="isMenuOpen()"
+  >
     Menu
   </button>
 
   @if (isMenuOpen()) {
-    <ul class="menu-items">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Profile</a></li>
-      <li><a href="#">Settings</a></li>
+    <ul class="menu-items" role="menu">
+      <li role="none"><a role="menuitem" href="#">Home</a></li>
+      <li role="none"><a role="menuitem" href="#">Profile</a></li>
+      <li role="none"><a role="menuitem" href="#">Settings</a></li>
     </ul>
   }
 </nav>
 
 <hr />
 
-<form class="form" (ngSubmit)="submitForm()">
+<form class="form" (ngSubmit)="submitForm()" novalidate>
   <label>
     Email
-    <input type="email" [(ngModel)]="email" name="email" />
+    <input
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      [attr.aria-invalid]="errorMessage() ? 'true' : null"
+    />
   </label>
 
   <label>
     Password
-    <input type="password" [(ngModel)]="password" name="password" />
+    <input
+      type="password"
+      [(ngModel)]="password"
+      name="password"
+      [attr.aria-invalid]="errorMessage() ? 'true' : null"
+    />
   </label>
 
-  @if (errorMessage()) {
-    <div class="error">
-      {{ errorMessage() }}
-    </div>
-  }
+  <div class="error" aria-live="assertive">
+    {{ errorMessage() }}
+  </div>
 
   <button type="submit" class="submit">Submit</button>
 </form>
@@ -40,6 +54,8 @@
   type="button"
   class="toggle"
   (click)="toggleNotifications()"
+  role="switch"
+  [attr.aria-checked]="notificationsEnabled()"
 >
   Notifications: {{ notificationsEnabled() ? 'On' : 'Off' }}
 </button>
@@ -51,14 +67,19 @@
     type="button"
     class="dropdown-trigger"
     (click)="toggleDropdown()"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="isDropdownOpen()"
   >
     {{ selectedOption() || 'Select frequency' }}
   </button>
 
   @if (isDropdownOpen()) {
-    <ul class="dropdown-options">
+    <ul class="dropdown-options" role="listbox">
       @for (option of options; track option) {
-        <li>
+        <li
+          role="option"
+          [attr.aria-selected]="selectedOption() === option"
+        >
           <button type="button" (click)="selectOption(option)">
             {{ option }}
           </button>
@@ -70,20 +91,30 @@
 
 <hr />
 
-<button type="button" class="open-modal" (click)="openModal()">
+<button
+  type="button"
+  class="open-modal"
+  (click)="openModal()"
+>
   Open Modal
 </button>
 
 @if (isModalOpen()) {
   <div class="modal-backdrop"></div>
 
-  <div class="modal">
-    <h2>Confirm Action</h2>
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    aria-labelledby="modal-title"
+  >
+    <h2 id="modal-title">Confirm Action</h2>
     <p>Are you sure?</p>
 
     <div class="modal-actions">
-      <button type="button" (click)="closeModal()">Cancel</button>
-      <button type="button" (click)="closeModal()">Confirm</button>
+      <button type="button" class="cancel" (click)="closeModal()">Cancel</button>
+      <button type="button" class="confirm" (click)="closeModal()">Confirm</button>
     </div>
   </div>
 }
@@ -93,14 +124,14 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Age</th>
+      <th scope="col">Name</th>
+      <th scope="col">Age</th>
     </tr>
   </thead>
   <tbody>
     @for (user of users(); track user.name) {
       <tr>
-        <td>{{ user.name }}</td>
+        <th scope="row">{{ user.name }}</th>
         <td>{{ user.age }}</td>
       </tr>
     }
