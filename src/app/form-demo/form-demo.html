@@ -41,10 +41,12 @@
     />
   </label>
 
+  @if (errorMessage()) {
   <div class="error" aria-live="assertive">
     {{ errorMessage() }}
   </div>
-
+  }
+  
   <button type="submit" class="submit">Submit</button>
 </form>
 
