@@ -4,6 +4,7 @@ import {
   signal,
   WritableSignal,
   effect,
+  HostListener,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -29,6 +30,7 @@ export class FormDemo {
   protected isDropdownOpen: WritableSignal<boolean> = signal(false);
   protected selectedOption: WritableSignal<string | null> = signal(null);
   protected readonly options = ['Daily', 'Weekly', 'Monthly'];
+  protected activeOptionIndex: WritableSignal<number> = signal(0);
 
   protected isMenuOpen: WritableSignal<boolean> = signal(false);
 
@@ -83,5 +85,38 @@ export class FormDemo {
         modal?.focus();
       }
     });
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  protected handleKeydown(event: KeyboardEvent): void {
+    if (this.isModalOpen() && event.key === 'Escape') {
+      event.preventDefault();
+      this.closeModal();
+    }
+
+    if (this.isDropdownOpen()) {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        this.activeOptionIndex.update(i =>
+          Math.min(i + 1, this.options.length - 1),
+        );
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        this.activeOptionIndex.update(i => Math.max(i - 1, 0));
+      }
+
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const option = this.options[this.activeOptionIndex()];
+        this.selectOption(option);
+      }
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        this.isDropdownOpen.set(false);
+      }
+    }
   }
 }
