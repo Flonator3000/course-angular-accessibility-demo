@@ -4,7 +4,8 @@ import {
   ElementRef,
   OnDestroy,
   ViewChild,
-  signal
+  signal,
+  viewChild
 } from '@angular/core';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Subscription } from 'rxjs';
@@ -22,20 +23,15 @@ export class FocusMonitorExample implements AfterViewInit, OnDestroy {
   private subscriptions = new Subscription();
   private lastFocusOrigin: FocusOrigin | null = null;
 
-  @ViewChild('openButton', { static: true })
-  openButton!: ElementRef<HTMLElement>;
-
-  @ViewChild('usernameInput')
-  usernameInput?: ElementRef<HTMLInputElement>;
-
-  @ViewChild('advancedInput')
-  advancedInput?: ElementRef<HTMLInputElement>;
+  openButton = viewChild<ElementRef<HTMLElement>>('openButton');
+  usernameInput = viewChild<ElementRef<HTMLInputElement>>('usernameInput');
+  advancedInput = viewChild<ElementRef<HTMLInputElement>>('advancedInput');
 
   constructor(private focusMonitor: FocusMonitor) {}
 
   ngAfterViewInit(): void {
     this.subscriptions.add(
-      this.focusMonitor.monitor(this.openButton).subscribe(origin => {
+      this.focusMonitor.monitor(this.openButton()!).subscribe(origin => {
         this.lastFocusOrigin = origin;
       })
     );
@@ -49,7 +45,7 @@ export class FocusMonitorExample implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       if (this.usernameInput) {
         this.focusMonitor.focusVia(
-          this.usernameInput,
+          this.usernameInput()!,
           this.lastFocusOrigin ?? 'program'
         );
       }
@@ -62,7 +58,7 @@ export class FocusMonitorExample implements AfterViewInit, OnDestroy {
 
     // Restore focus to trigger element
     this.focusMonitor.focusVia(
-      this.openButton,
+      this.openButton()!,
       this.lastFocusOrigin ?? 'program'
     );
   }
@@ -77,7 +73,7 @@ export class FocusMonitorExample implements AfterViewInit, OnDestroy {
       setTimeout(() => {
         if (this.advancedInput) {
           this.focusMonitor.focusVia(
-            this.advancedInput,
+            this.advancedInput()!,
             this.lastFocusOrigin ?? 'program'
           );
         }
@@ -89,7 +85,7 @@ export class FocusMonitorExample implements AfterViewInit, OnDestroy {
     this.statusMessage.set('Settings saved');
 
     this.focusMonitor.focusVia(
-      this.openButton,
+      this.openButton()!,
       this.lastFocusOrigin ?? 'program'
     );
 
@@ -98,6 +94,6 @@ export class FocusMonitorExample implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.focusMonitor.stopMonitoring(this.openButton);
+    this.focusMonitor.stopMonitoring(this.openButton()!);
   }
 }
