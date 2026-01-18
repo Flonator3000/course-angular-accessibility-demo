@@ -11,9 +11,33 @@
 
   @if (isMenuOpen()) {
     <ul class="menu-items" role="menu">
-      <li role="none"><a role="menuitem" href="#">Home</a></li>
-      <li role="none"><a role="menuitem" href="#">Profile</a></li>
-      <li role="none"><a role="menuitem" href="#">Settings</a></li>
+      <li role="none">
+        <a
+          role="menuitem"
+          href="#"
+          [attr.tabindex]="activeMenuIndex() === 0 ? 0 : -1"
+        >
+          Home
+        </a>
+      </li>
+      <li role="none">
+        <a
+          role="menuitem"
+          href="#"
+          [attr.tabindex]="activeMenuIndex() === 1 ? 0 : -1"
+        >
+          Profile
+        </a>
+      </li>
+      <li role="none">
+        <a
+          role="menuitem"
+          href="#"
+          [attr.tabindex]="activeMenuIndex() === 2 ? 0 : -1"
+        >
+          Settings
+        </a>
+      </li>
     </ul>
   }
 </nav>
@@ -71,15 +95,24 @@
     (click)="toggleDropdown()"
     aria-haspopup="listbox"
     [attr.aria-expanded]="isDropdownOpen()"
+    aria-controls="frequency-list"
+    [attr.aria-activedescendant]="
+      isDropdownOpen() ? 'option-' + activeOptionIndex() : null
+    "
   >
     {{ selectedOption() || 'Select frequency' }}
   </button>
 
   @if (isDropdownOpen()) {
-    <ul class="dropdown-options" role="listbox">
+    <ul
+      id="frequency-list"
+      class="dropdown-options"
+      role="listbox"
+    >
       @for (option of options; track option; let i = $index) {
         <li
           role="option"
+          [id]="'option-' + i"
           [attr.aria-selected]="activeOptionIndex() === i"
           [class.active]="activeOptionIndex() === i"
         >

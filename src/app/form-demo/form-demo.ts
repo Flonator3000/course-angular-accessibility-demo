@@ -33,6 +33,7 @@ export class FormDemo {
   protected activeOptionIndex: WritableSignal<number> = signal(0);
 
   protected isMenuOpen: WritableSignal<boolean> = signal(false);
+  protected activeMenuIndex: WritableSignal<number> = signal(0);
 
   protected isModalOpen: WritableSignal<boolean> = signal(false);
   protected lastFocusedElement: WritableSignal<HTMLElement | null> = signal(null);
@@ -56,7 +57,7 @@ export class FormDemo {
   }
 
   protected toggleDropdown(): void {
-    this.isDropdownOpen.update(value => !value);
+    this.isDropdownOpen.update(open => !open);
     this.activeOptionIndex.set(0);
   }
 
@@ -67,6 +68,7 @@ export class FormDemo {
 
   protected toggleMenu(): void {
     this.isMenuOpen.update(value => !value);
+    this.activeMenuIndex.set(0);
   }
 
   protected openModal(): void {
@@ -93,32 +95,52 @@ export class FormDemo {
 
   @HostListener('document:keydown', ['$event'])
   protected handleKeydown(event: KeyboardEvent): void {
-    if (this.isModalOpen() && event.key === 'Escape') {
-      event.preventDefault();
-      this.closeModal();
-      return;
-    }
-
-    /* Focus trap inside modal */
-    if (this.isModalOpen() && event.key === 'Tab') {
-      const modal = document.querySelector('.modal') as HTMLElement | null;
-      const focusable = modal?.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-      );
-
-      if (!focusable || focusable.length === 0) {
+    if (this.isModalOpen()) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        this.closeModal();
         return;
       }
 
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
+      if (event.key === 'Tab') {
+        const modal = document.querySelector('.modal') as HTMLElement | null;
+        const focusable = modal?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
 
-      if (event.shiftKey && document.activeElement === first) {
+        if (!focusable || focusable.length === 0) {
+          return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
+      return;
+    }
+
+    if (this.isMenuOpen()) {
+      if (event.key === 'ArrowDown') {
         event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+        this.activeMenuIndex.update(i => Math.min(i + 1, 2));
+      }
+
+      if (event.key === 'ArrowUp') {
         event.preventDefault();
-        first.focus();
+        this.activeMenuIndex.update(i => Math.max(i - 1, 0));
+      }
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        this.isMenuOpen.set(false);
       }
     }
 
