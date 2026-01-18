@@ -27,16 +27,23 @@ export class FormDemo {
 
   protected notificationsEnabled: WritableSignal<boolean> = signal(false);
 
+  /* Dropdown */
   protected isDropdownOpen: WritableSignal<boolean> = signal(false);
   protected selectedOption: WritableSignal<string | null> = signal(null);
   protected readonly options = ['Daily', 'Weekly', 'Monthly'];
   protected activeOptionIndex: WritableSignal<number> = signal(0);
 
+  /* Menu */
   protected isMenuOpen: WritableSignal<boolean> = signal(false);
   protected activeMenuIndex: WritableSignal<number> = signal(0);
+  protected readonly menuItems = ['Home', 'Profile', 'Settings'];
 
+  /* Modal */
   protected isModalOpen: WritableSignal<boolean> = signal(false);
   protected lastFocusedElement: WritableSignal<HTMLElement | null> = signal(null);
+
+  /* Announcements */
+  protected announcement: WritableSignal<string> = signal('');
 
   protected users: WritableSignal<User[]> = signal([
     { name: 'Alice', age: 30 },
@@ -49,11 +56,15 @@ export class FormDemo {
       this.errorMessage.set('Invalid input');
     } else {
       this.errorMessage.set('');
+      this.announcement.set('Form submitted successfully');
     }
   }
 
   protected toggleNotifications(): void {
     this.notificationsEnabled.update(value => !value);
+    this.announcement.set(
+      `Notifications ${this.notificationsEnabled() ? 'enabled' : 'disabled'}`,
+    );
   }
 
   protected toggleDropdown(): void {
@@ -64,73 +75,61 @@ export class FormDemo {
   protected selectOption(option: string): void {
     this.selectedOption.set(option);
     this.isDropdownOpen.set(false);
+    this.announcement.set(`Frequency set to ${option}`);
   }
 
   protected toggleMenu(): void {
-    this.isMenuOpen.update(value => !value);
+    this.isMenuOpen.update(open => !open);
     this.activeMenuIndex.set(0);
   }
 
   protected openModal(): void {
     this.lastFocusedElement.set(document.activeElement as HTMLElement);
     this.isModalOpen.set(true);
+    this.announcement.set('Dialog opened');
   }
 
   protected closeModal(): void {
     this.isModalOpen.set(false);
     this.lastFocusedElement()?.focus();
+    this.announcement.set('Dialog closed');
   }
 
   constructor() {
     effect(() => {
+      const appRoot = document.querySelector('app-root') as HTMLElement | null;
+
       if (this.isModalOpen()) {
+        appRoot?.setAttribute('inert', '');
         const modal = document.querySelector('.modal') as HTMLElement | null;
         const focusable = modal?.querySelectorAll<HTMLElement>(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         );
         focusable?.[0]?.focus();
+      } else {
+        appRoot?.removeAttribute('inert');
       }
     });
   }
 
   @HostListener('document:keydown', ['$event'])
   protected handleKeydown(event: KeyboardEvent): void {
+    /* Modal */
     if (this.isModalOpen()) {
       if (event.key === 'Escape') {
         event.preventDefault();
         this.closeModal();
         return;
       }
-
-      if (event.key === 'Tab') {
-        const modal = document.querySelector('.modal') as HTMLElement | null;
-        const focusable = modal?.querySelectorAll<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-        );
-
-        if (!focusable || focusable.length === 0) {
-          return;
-        }
-
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first.focus();
-        }
-      }
-
-      return;
     }
 
+    /* Menu */
     if (this.isMenuOpen()) {
       if (event.key === 'ArrowDown') {
         event.preventDefault();
-        this.activeMenuIndex.update(i => Math.min(i + 1, 2));
+        this.activeMenuIndex.update(i =>
+          Math.min(i + 1, this.menuItems.length - 1),
+        );
       }
 
       if (event.key === 'ArrowUp') {
@@ -138,12 +137,17 @@ export class FormDemo {
         this.activeMenuIndex.update(i => Math.max(i - 1, 0));
       }
 
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        this.isMenuOpen.set(false);
+      if (event.key.length === 1) {
+        const index = this.menuItems.findIndex(item =>
+          item.toLowerCase().startsWith(event.key.toLowerCase()),
+        );
+        if (index >= 0) {
+          this.activeMenuIndex.set(index);
+        }
       }
     }
 
+    /* Dropdown */
     if (this.isDropdownOpen()) {
       if (event.key === 'ArrowDown') {
         event.preventDefault();
@@ -159,13 +163,21 @@ export class FormDemo {
 
       if (event.key === 'Enter') {
         event.preventDefault();
-        const option = this.options[this.activeOptionIndex()];
-        this.selectOption(option);
+        this.selectOption(this.options[this.activeOptionIndex()]);
       }
 
       if (event.key === 'Escape') {
         event.preventDefault();
         this.isDropdownOpen.set(false);
+      }
+
+      if (event.key.length === 1) {
+        const index = this.options.findIndex(option =>
+          option.toLowerCase().startsWith(event.key.toLowerCase()),
+        );
+        if (index >= 0) {
+          this.activeOptionIndex.set(index);
+        }
       }
     }
   }

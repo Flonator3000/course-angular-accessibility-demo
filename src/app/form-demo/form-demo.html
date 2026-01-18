@@ -1,3 +1,8 @@
+<!-- Live region for announcements -->
+<div class="sr-only" aria-live="polite">
+  {{ announcement() }}
+</div>
+
 <nav class="menu">
   <button
     type="button"
@@ -11,15 +16,15 @@
 
   @if (isMenuOpen()) {
     <ul class="menu-items" role="menu">
-      <li role="none">
-        <a
-          role="menuitem"
-          href="#"
+        <li role="none">
+          <a
+            role="menuitem"
+            href="#"
           [attr.tabindex]="activeMenuIndex() === 0 ? 0 : -1"
-        >
+          >
           Home
-        </a>
-      </li>
+          </a>
+        </li>
       <li role="none">
         <a
           role="menuitem"
