@@ -1,0 +1,40 @@
+<h2>Application Settings</h2>
+
+
+<p class="status">{{ statusMessage() }}</p>
+
+
+<div class="open-panel" (click)="openPanel()">
+  Open Settings Panel
+</div>
+
+<a href="#">Background Link</a>
+
+@if(isPanelOpen()) {
+<div class="panel">
+  <h3>Settings Panel</h3>
+
+  <label>
+    Username
+    <input type="text" />
+  </label>
+
+  <div class="toggle" (click)="toggleAdvanced()">
+    Toggle Advanced Settings
+  </div>
+
+  @if(showAdvanced()) {
+  <div>
+    <label>
+      API Key
+      <input type="text" />
+    </label>
+  </div>
+  }
+
+  <div class="actions">
+    <span class="action" (click)="save()">Save</span>
+    <span class="action" (click)="closePanel()">Cancel</span>
+  </div>
+</div>
+}
