@@ -1,12 +1,15 @@
 <h2>Application Settings</h2>
 
-
 <p class="status">{{ statusMessage() }}</p>
 
-
-<div class="open-panel" (click)="openPanel()">
+<button
+  #openButton
+  class="open-panel"
+  tabindex="0"
+  (click)="openPanel()"
+>
   Open Settings Panel
-</div>
+</button>
 
 <a href="#">Background Link</a>
 
@@ -16,25 +19,25 @@
 
   <label>
     Username
-    <input type="text" />
+    <input #usernameInput type="text" />
   </label>
 
-  <div class="toggle" (click)="toggleAdvanced()">
+  <button class="toggle" tabindex="0" (click)="toggleAdvanced()">
     Toggle Advanced Settings
-  </div>
+  </button>
 
-  @if(showAdvanced()) {
-  <div>
+    @if(showAdvanced()) {
+  <button>
     <label>
       API Key
-      <input type="text" />
+      <input #advancedInput type="text" />
     </label>
-  </div>
-  }
+  </button>
+}
 
   <div class="actions">
-    <span class="action" (click)="save()">Save</span>
-    <span class="action" (click)="closePanel()">Cancel</span>
+    <button class="action" tabindex="0" (click)="save()">Save</button>
+    <button class="action" tabindex="0" (click)="closePanel()">Cancel</button>
   </div>
 </div>
 }
