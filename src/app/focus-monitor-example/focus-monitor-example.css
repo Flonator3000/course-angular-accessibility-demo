@@ -85,3 +85,7 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+.advancedInput {
+    max-width: 100px;
+}

@@ -1,11 +1,10 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
-  ViewChild,
   signal,
-  viewChild
+  viewChild,
+  afterNextRender
 } from '@angular/core';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Subscription } from 'rxjs';
@@ -15,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './focus-monitor-example.html',
   styleUrl: './focus-monitor-example.css',
 })
-export class FocusMonitorExample implements AfterViewInit, OnDestroy {
+export class FocusMonitorExample implements OnDestroy {
   isPanelOpen = signal(false);
   showAdvanced = signal(false);
   statusMessage = signal('');
@@ -27,14 +26,20 @@ export class FocusMonitorExample implements AfterViewInit, OnDestroy {
   usernameInput = viewChild<ElementRef<HTMLInputElement>>('usernameInput');
   advancedInput = viewChild<ElementRef<HTMLInputElement>>('advancedInput');
 
-  constructor(private focusMonitor: FocusMonitor) {}
+  constructor(private focusMonitor: FocusMonitor) {
+    afterNextRender(() => {
+      const openButtonRef = this.openButton();
 
-  ngAfterViewInit(): void {
-    this.subscriptions.add(
-      this.focusMonitor.monitor(this.openButton()!).subscribe(origin => {
-        this.lastFocusOrigin = origin;
-      })
-    );
+      if (!openButtonRef) {
+        return;
+      }
+
+      this.subscriptions.add(
+        this.focusMonitor.monitor(openButtonRef).subscribe(origin => {
+          this.lastFocusOrigin = origin;
+        })
+      );
+    });
   }
 
   openPanel(): void {
@@ -56,18 +61,22 @@ export class FocusMonitorExample implements AfterViewInit, OnDestroy {
     this.isPanelOpen.set(false);
     this.statusMessage.set('Settings panel closed');
 
-    // Restore focus to trigger element
-    this.focusMonitor.focusVia(
-      this.openButton()!,
-      this.lastFocusOrigin ?? 'program'
-    );
+    const buttonRef = this.openButton();
+    if (buttonRef) {
+      this.focusMonitor.focusVia(
+        buttonRef,
+        this.lastFocusOrigin ?? 'program'
+      );
+    }
   }
 
   toggleAdvanced(): void {
-    this.showAdvanced.set(!this.showAdvanced);
-    this.statusMessage.update(showAdvanced => showAdvanced
-      ? 'Advanced settings shown'
-      : 'Advanced settings hidden');
+    this.showAdvanced.update(v => !v);
+    this.statusMessage.set(
+      this.showAdvanced()
+        ? 'Advanced settings shown'
+        : 'Advanced settings hidden'
+    );
 
     if (this.showAdvanced()) {
       setTimeout(() => {
@@ -83,17 +92,23 @@ export class FocusMonitorExample implements AfterViewInit, OnDestroy {
 
   save(): void {
     this.statusMessage.set('Settings saved');
-
-    this.focusMonitor.focusVia(
-      this.openButton()!,
-      this.lastFocusOrigin ?? 'program'
-    );
-
     this.isPanelOpen.set(false);
+
+    const buttonRef = this.openButton();
+    if (buttonRef) {
+      this.focusMonitor.focusVia(
+        buttonRef,
+        this.lastFocusOrigin ?? 'program'
+      );
+    }
   }
 
   ngOnDestroy(): void {
+    const buttonRef = this.openButton();
+    if (buttonRef) {
+      this.focusMonitor.stopMonitoring(buttonRef);
+    }
+
     this.subscriptions.unsubscribe();
-    this.focusMonitor.stopMonitoring(this.openButton()!);
   }
 }
